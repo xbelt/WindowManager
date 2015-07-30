@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MouseKeyboardActivityMonitor;
 using MouseKeyboardActivityMonitor.WinApi;
+using Newtonsoft.Json;
 using WindowScrape.Types;
 using Config = WindowSelector.Configuration.Config;
 
@@ -24,7 +25,21 @@ namespace WindowSelector
         private readonly KeyboardHookListener keyboardListener;
         private Screen currentScreen = Screen.PrimaryScreen;
         private Dictionary<Keys, bool> activationKeys = new Dictionary<Keys, bool>(); 
-        private Dictionary<Keys, Action> keyToCommand = new Dictionary<Keys, Action>(); 
+        private Dictionary<Keys, List<Position>> keyToConfigList = new Dictionary<Keys, List<Position>>();
+        private Dictionary<Keys, string> keyToSerializedName = new Dictionary<Keys, string>
+        {
+            {Keys.NumPad1, "N1" },
+            {Keys.NumPad2, "N2" },
+            {Keys.NumPad3, "N3" },
+            {Keys.NumPad4, "N4" },
+            {Keys.NumPad5, "N5" },
+            {Keys.NumPad6, "N6" },
+            {Keys.NumPad7, "N7" },
+            {Keys.NumPad8, "N8" },
+            {Keys.NumPad9, "N9" },
+        }; 
+        private Keys currentKey = Keys.None;
+        private int currentIndex = 0;
 
         public WindowSelector()
         {
@@ -32,6 +47,12 @@ namespace WindowSelector
 
             Config.Init();
             exclusions = ReadExclusions();
+
+
+            //var json = JsonConvert.SerializeObject(testList, Newtonsoft.Json.Formatting.None, new JsonSerializerSettings {StringEscapeHandling = StringEscapeHandling.EscapeHtml});
+            //Console.WriteLine(json);
+
+            InitializePositions();
 
             trayMenu = new ContextMenu();
             trayMenu.MenuItems.Add("Exit", OnExit);
@@ -50,23 +71,7 @@ namespace WindowSelector
 
             activationKeys[Keys.LShiftKey] = false;
             activationKeys[Keys.LMenu] = false;
-
-            keyToCommand[Keys.Left] = OnLeft;
-            keyToCommand[Keys.Up] = OnUp;
-            keyToCommand[Keys.Right] = OnRight;
-            keyToCommand[Keys.Down] = OnDown;
-
-            keyToCommand[Keys.NumPad1] = On1;
-            keyToCommand[Keys.NumPad2] = On2;
-            keyToCommand[Keys.NumPad3] = On3;
-            keyToCommand[Keys.NumPad4] = On4;
-            keyToCommand[Keys.NumPad5] = On5;
-            keyToCommand[Keys.NumPad6] = On6;
-            keyToCommand[Keys.NumPad7] = On7;
-            keyToCommand[Keys.NumPad8] = On8;
-            keyToCommand[Keys.NumPad9] = On9;
-
-
+            
             mouseListener = new MouseHookListener(new GlobalHooker());
             mouseListener.Enabled = true;
             mouseListener.MouseMoveExt += OnMouseDown;
@@ -81,69 +86,12 @@ namespace WindowSelector
             StartWindowUpdater();
         }
 
-        private void On1()
+        private void InitializePositions()
         {
-            throw new NotImplementedException();
-        }
-
-        private void On2()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void On3()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void On4()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void On5()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void On6()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void On7()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void On8()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void On9()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnDown()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnRight()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnUp()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnLeft()
-        {
-            throw new NotImplementedException();
+            foreach (var keyValue in keyToSerializedName)
+            {
+                keyToConfigList[keyValue.Key] = JsonConvert.DeserializeObject<List<Position>>(Config.Settings["Positions"][keyValue.Value].Value);
+            }
         }
 
         private void OnKeyUp(object sender, KeyEventArgs e)
@@ -169,11 +117,30 @@ namespace WindowSelector
             if (activationKeys.Values.All(x => x))
             {
                 Console.WriteLine("AllActive");
-                if (keyToCommand.ContainsKey(e.KeyCode))
+                if (keyToSerializedName.ContainsKey(e.KeyCode))
                 {
-                    keyToCommand[e.KeyCode]();
+                    PerformClick(e.KeyCode);
                 }
             }
+        }
+
+        private void PerformClick(Keys keyCode)
+        {
+            if (currentKey == keyCode)
+            {
+                currentIndex = (currentIndex + 1)%keyToConfigList[keyCode].Count;
+            }
+            else
+            {
+                currentIndex = 0;
+                currentKey = keyCode;
+            }
+
+            var currentPos = keyToConfigList[keyCode][currentIndex];
+            Location = new Point((int)(currentScreen.Bounds.Width * currentPos.X / 100),
+                (int)(currentScreen.Bounds.Height * currentPos.Y / 100));
+            Size = new Size((int)(currentScreen.Bounds.Width * currentPos.Width / 100),
+                (int)(currentScreen.Bounds.Height * currentPos.Height / 100));
         }
 
         private void OnMouseDown(object sender, MouseEventExtArgs e)
