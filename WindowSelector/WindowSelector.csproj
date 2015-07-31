@@ -61,7 +61,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="globalKeyboardHook.cs" />
     <Compile Include="Helper.cs" />
+    <Compile Include="LayoutSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LayoutSettings.Designer.cs">
+      <DependentUpon>LayoutSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="OpenWindowGetter.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Program.cs" />
@@ -72,6 +79,9 @@
     <Compile Include="WindowSelector.Designer.cs">
       <DependentUpon>WindowSelector.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="LayoutSettings.resx">
+      <DependentUpon>LayoutSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

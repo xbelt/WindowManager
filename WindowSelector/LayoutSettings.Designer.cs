@@ -1,6 +1,6 @@
 ﻿namespace WindowSelector
 {
-    partial class WindowSelector
+    partial class LayoutSettings
     {
         /// <summary>
         /// Required designer variable.
@@ -30,18 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // WindowSelector
+            // LayoutSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DarkRed;
-            this.ClientSize = new System.Drawing.Size(0, 0);
-            this.ControlBox = false;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "WindowSelector";
-            this.Opacity = 0.15D;
-            this.ShowInTaskbar = false;
-            this.Text = "WindowSelector";
+            this.ClientSize = new System.Drawing.Size(515, 467);
+            this.Name = "LayoutSettings";
+            this.Text = "LayoutSettings";
             this.ResumeLayout(false);
 
         }

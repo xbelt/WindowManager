@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using MouseKeyboardActivityMonitor;
 using MouseKeyboardActivityMonitor.WinApi;
 using Newtonsoft.Json;
+using Utilities;
 using WindowScrape.Types;
 using Config = WindowSelector.Configuration.Config;
 
@@ -24,20 +25,22 @@ namespace WindowSelector
         private MouseHookListener mouseListener;
         private readonly KeyboardHookListener keyboardListener;
         private Screen currentScreen = Screen.PrimaryScreen;
-        private Dictionary<Keys, bool> activationKeys = new Dictionary<Keys, bool>(); 
+        private List<Keys> activationKeys = new List<Keys>(); 
         private Dictionary<Keys, List<Position>> keyToConfigList = new Dictionary<Keys, List<Position>>();
         private Dictionary<Keys, string> keyToSerializedName = new Dictionary<Keys, string>
         {
-            {Keys.NumPad1, "N1" },
-            {Keys.NumPad2, "N2" },
-            {Keys.NumPad3, "N3" },
-            {Keys.NumPad4, "N4" },
-            {Keys.NumPad5, "N5" },
-            {Keys.NumPad6, "N6" },
-            {Keys.NumPad7, "N7" },
-            {Keys.NumPad8, "N8" },
-            {Keys.NumPad9, "N9" },
+            {Keys.End, "N1" },
+            {Keys.Down, "N2" },
+            {Keys.Next, "N3" },
+            {Keys.Left, "N4" },
+            {Keys.Clear, "N5" },
+            {Keys.Right, "N6" },
+            {Keys.Home, "N7" },
+            {Keys.Up, "N8" },
+            {Keys.PageUp, "N9" },
         }; 
+
+        private Dictionary<Keys, bool> hasBeenPressend = new Dictionary<Keys, bool>(); 
         private Keys currentKey = Keys.None;
         private int currentIndex = 0;
 
@@ -56,7 +59,7 @@ namespace WindowSelector
 
             trayMenu = new ContextMenu();
             trayMenu.MenuItems.Add("Exit", OnExit);
-            trayMenu.MenuItems.Add("Settings", OnSettings);
+            trayMenu.MenuItems.Add("Layout settings", OnSettings);
 
             // Create a tray icon. In this example we use a
             // standard system icon for simplicity, but you
@@ -69,8 +72,8 @@ namespace WindowSelector
             trayIcon.ContextMenu = trayMenu;
             trayIcon.Visible = true;
 
-            activationKeys[Keys.LShiftKey] = false;
-            activationKeys[Keys.LMenu] = false;
+            activationKeys.Add(Keys.Shift);
+            activationKeys.Add(Keys.Alt);
             
             mouseListener = new MouseHookListener(new GlobalHooker());
             mouseListener.Enabled = true;
@@ -90,41 +93,59 @@ namespace WindowSelector
         {
             foreach (var keyValue in keyToSerializedName)
             {
-                keyToConfigList[keyValue.Key] = JsonConvert.DeserializeObject<List<Position>>(Config.Settings["Positions"][keyValue.Value].Value);
+                var keyToConfig = JsonConvert.DeserializeObject<List<Position>>(Config.Settings["Positions"][keyValue.Value].Value);
+                keyToConfigList[keyValue.Key] = keyToConfig;
             }
         }
 
         private void OnKeyUp(object sender, KeyEventArgs e)
         {
-            if (activationKeys.ContainsKey(e.KeyCode))
+            hasBeenPressend[e.KeyCode] = false;
+            Console.WriteLine("OnKeyUp" + e.KeyCode);
+           
+                //ActivateWindows();
+                //Size = new Size(0,0);
+        }
+
+        private void ActivateWindows()
+        {
+            foreach (var currentWindow in CurrentWindows)
             {
-                activationKeys[e.KeyCode] = false;
+                var size = Helper.GetWindowDimensions(currentWindow.Key);
+
+                if (Location.X > size.Left)
+                    continue;
+                if (Location.Y > size.Top)
+                    continue;
+                if (Location.X + Size.Width < size.Right)
+                    continue;
+                if (Location.Y + Size.Height < size.Bottom)
+                    continue;
+
+                Helper.SetForegroundWindow(currentWindow.Key);
             }
         }
 
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            Console.WriteLine("OnKeyDown");
-            if (activationKeys.ContainsKey(e.KeyCode))
+            if (hasBeenPressend.ContainsKey(e.KeyCode) && hasBeenPressend[e.KeyCode])
+                return;
+            Console.WriteLine(e.KeyCode);
+            Console.WriteLine(e.Modifiers);
+            hasBeenPressend[e.KeyCode] = true;
+            //Console.WriteLine("KeyDown: " + e.KeyCode);
+            
+
+            Console.WriteLine(keyToSerializedName.ContainsKey(e.KeyCode));
+            if (keyToSerializedName.ContainsKey(e.KeyCode) && e.Alt && e.Control)
             {
-                activationKeys[e.KeyCode] = true;
+                MoveForm(e.KeyCode);
             }
 
-            Console.WriteLine(activationKeys.Values.All(x => x));
-            Console.WriteLine(activationKeys.Aggregate(e.KeyCode.ToString(), (s, pair) => s + "(" + pair.Key + ")" + pair.Value));
-
-            if (activationKeys.Values.All(x => x))
-            {
-                Console.WriteLine("AllActive");
-                if (keyToSerializedName.ContainsKey(e.KeyCode))
-                {
-                    PerformClick(e.KeyCode);
-                }
-            }
         }
 
-        private void PerformClick(Keys keyCode)
+        private void MoveForm(Keys keyCode)
         {
             if (currentKey == keyCode)
             {
@@ -162,7 +183,7 @@ namespace WindowSelector
                 {
                     Thread.Sleep(Config.Settings["Settings"]["UpdateInterval"].intValue * 1000);
                     LoadOpenWindows();
-                    //Console.WriteLine(CurrentWindows.Aggregate("", (s, pair) => s + ", " + pair.Value));
+                    //Console.WriteLine(CurrentWindows.Aggregate("", (s, pair) => s + ", " + pair.Value + Helper.GetWindowDimensions(pair.Key).Left));
                 }
             }) {IsBackground = true}).Start();
         }
@@ -191,7 +212,8 @@ namespace WindowSelector
 
         private void OnSettings(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var window = new LayoutSettings();
+            window.Show();
         }
 
         private void OnExit(object sender, EventArgs e)
