@@ -52,6 +52,8 @@ namespace WindowSelector
             Config.Init();
             exclusions = ReadExclusions();
 
+            hasBeenPressend[Keys.Add] = false;
+
 
             //var json = JsonConvert.SerializeObject(testList, Newtonsoft.Json.Formatting.None, new JsonSerializerSettings {StringEscapeHandling = StringEscapeHandling.EscapeHtml});
             //Console.WriteLine(json);
@@ -105,15 +107,16 @@ namespace WindowSelector
         private void OnKeyUp(object sender, KeyEventArgs e)
         {
             hasBeenPressend[e.KeyCode] = false;
-
-            Console.WriteLine(e.KeyCode);
-            if (!hasBeenPressend[Keys.Add] && !hasBeenPressend[Keys.LControlKey] && !hasBeenPressend[Keys.LMenu])
+            
+            if ((hasBeenPressend.ContainsKey(Keys.Add) && !hasBeenPressend[Keys.Add]) && 
+                (hasBeenPressend.ContainsKey(Keys.LControlKey) && !hasBeenPressend[Keys.LControlKey]) &&
+                (hasBeenPressend.ContainsKey(Keys.LMenu) && !hasBeenPressend[Keys.LMenu]))
             {
+                currentKey = Keys.None;
+                currentIndex = 0;
                 ActivateWindows();
                 Size = new Size(0, 0);
             }
-
-            currentIndex = 0;
             //ActivateWindows();
             //Size = new Size(0,0);
         }
@@ -184,10 +187,14 @@ namespace WindowSelector
             }
 
             var currentPos = keyToConfigList[keyCode][currentIndex];
-            var location = new Point(currentScreen.WorkingArea.Left + (int)(currentScreen.WorkingArea.Width * currentPos.X / 100),
+            var location = new Point(currentScreen.WorkingArea.Left + (int)(currentScreen.WorkingArea.Width * currentPos.X / 100) -4,
                 currentScreen.WorkingArea.Top + (int)(currentScreen.WorkingArea.Height * currentPos.Y / 100));
-            var size = new Size((int)(currentScreen.WorkingArea.Width * currentPos.Width / 100),
-                (int)(currentScreen.WorkingArea.Height * currentPos.Height / 100));
+            var size = new Size((int)(currentScreen.WorkingArea.Width * currentPos.Width / 100) + 8,
+                (int)(currentScreen.WorkingArea.Height * currentPos.Height / 100) + 4);
+            var activeWindow = Helper.GetForegroundWindow();
+
+            Helper.SetWindowPos(activeWindow, 0, location.X, location.Y, size.Width, size.Height,
+                0x0004 | 0x0040);
 
 
         }
