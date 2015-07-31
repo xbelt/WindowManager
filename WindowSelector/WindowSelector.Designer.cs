@@ -39,7 +39,7 @@
             this.ControlBox = false;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "WindowSelector";
-            this.Opacity = 0.15D;
+            this.Opacity = 0D;
             this.ShowInTaskbar = false;
             this.Text = "WindowSelector";
             this.ResumeLayout(false);

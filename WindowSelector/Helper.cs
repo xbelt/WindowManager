@@ -31,6 +31,19 @@ namespace WindowSelector
             return result;
         }
 
+        public static int GetZOrder(IntPtr hWnd)
+        {
+            var z = 0;
+            for (IntPtr h = hWnd; h != IntPtr.Zero; h = GetWindow(h, 3)) z++;
+            return z;
+        }
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetWindow(IntPtr hWnd, int uCmd);
+
+        [DllImport("User32.dll")]
+        public static extern Int32 SetForegroundWindow(int hWnd);
+
         [DllImport("user32.dll")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 

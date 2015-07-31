@@ -29,15 +29,15 @@ namespace WindowSelector
         private Dictionary<Keys, List<Position>> keyToConfigList = new Dictionary<Keys, List<Position>>();
         private Dictionary<Keys, string> keyToSerializedName = new Dictionary<Keys, string>
         {
-            {Keys.End, "N1" },
-            {Keys.Down, "N2" },
-            {Keys.Next, "N3" },
-            {Keys.Left, "N4" },
-            {Keys.Clear, "N5" },
-            {Keys.Right, "N6" },
-            {Keys.Home, "N7" },
-            {Keys.Up, "N8" },
-            {Keys.PageUp, "N9" },
+            {Keys.NumPad1, "N1" },
+            {Keys.NumPad2, "N2" },
+            {Keys.NumPad3, "N3" },
+            {Keys.NumPad4, "N4" },
+            {Keys.NumPad5, "N5" },
+            {Keys.NumPad6, "N6" },
+            {Keys.NumPad7, "N7" },
+            {Keys.NumPad8, "N8" },
+            {Keys.NumPad9, "N9" },
         }; 
 
         private Dictionary<Keys, bool> hasBeenPressend = new Dictionary<Keys, bool>(); 
@@ -47,6 +47,7 @@ namespace WindowSelector
         public WindowSelector()
         {
             InitializeComponent();
+            Size = new Size(0,0);
 
             Config.Init();
             exclusions = ReadExclusions();
@@ -85,6 +86,9 @@ namespace WindowSelector
             keyboardListener.KeyDown += OnKeyDown;
             keyboardListener.KeyUp += OnKeyUp;
 
+            Opacity = 0.15f;
+            Size = new Size(0, 0);
+
 
             StartWindowUpdater();
         }
@@ -101,28 +105,49 @@ namespace WindowSelector
         private void OnKeyUp(object sender, KeyEventArgs e)
         {
             hasBeenPressend[e.KeyCode] = false;
-            Console.WriteLine("OnKeyUp" + e.KeyCode);
-           
-                //ActivateWindows();
-                //Size = new Size(0,0);
+
+            Console.WriteLine(e.KeyCode);
+            if (!hasBeenPressend[Keys.Add] && !hasBeenPressend[Keys.LControlKey] && !hasBeenPressend[Keys.LMenu])
+            {
+                ActivateWindows();
+                Size = new Size(0, 0);
+            }
+
+            currentIndex = 0;
+            //ActivateWindows();
+            //Size = new Size(0,0);
         }
 
         private void ActivateWindows()
         {
+            var possibleWindows = new List<IntPtr>();
             foreach (var currentWindow in CurrentWindows)
             {
                 var size = Helper.GetWindowDimensions(currentWindow.Key);
 
-                if (Location.X > size.Left)
+                if (Location.X > size.Left + 7)
                     continue;
                 if (Location.Y > size.Top)
                     continue;
-                if (Location.X + Size.Width < size.Right)
+                if (Location.X + Size.Width < size.Right - 7)
                     continue;
-                if (Location.Y + Size.Height < size.Bottom)
+                if (Location.Y + Size.Height < size.Bottom - 7)
                     continue;
 
-                Helper.SetForegroundWindow(currentWindow.Key);
+                possibleWindows.Add(currentWindow.Key);
+            }
+            if (!possibleWindows.Any())
+            {
+                return;
+            }
+            else if (possibleWindows.Count == 1)
+            {
+                Helper.SetForegroundWindow(possibleWindows.First());
+            }
+            else
+            {
+                var minValue = possibleWindows.Min(x => Helper.GetZOrder(x));
+                Helper.SetForegroundWindow(possibleWindows.Single(x => Helper.GetZOrder(x) == minValue));
             }
         }
 
@@ -131,22 +156,46 @@ namespace WindowSelector
         {
             if (hasBeenPressend.ContainsKey(e.KeyCode) && hasBeenPressend[e.KeyCode])
                 return;
-            Console.WriteLine(e.KeyCode);
-            Console.WriteLine(e.Modifiers);
             hasBeenPressend[e.KeyCode] = true;
-            //Console.WriteLine("KeyDown: " + e.KeyCode);
-            
 
-            Console.WriteLine(keyToSerializedName.ContainsKey(e.KeyCode));
-            if (keyToSerializedName.ContainsKey(e.KeyCode) && e.Alt && e.Control)
+            if (keyToSerializedName.ContainsKey(e.KeyCode) && e.Alt && e.Control && hasBeenPressend[Keys.Add])
             {
                 MoveForm(e.KeyCode);
+                return;
             }
+
+            if (keyToSerializedName.ContainsKey(e.KeyCode) && e.Alt && e.Control)
+            {
+                MoveApplication(e.KeyCode);
+            }
+
+        }
+
+        private void MoveApplication(Keys keyCode)
+        {
+            if (currentKey == keyCode)
+            {
+                currentIndex = (currentIndex + 1) % keyToConfigList[keyCode].Count;
+            }
+            else
+            {
+                currentIndex = 0;
+                currentKey = keyCode;
+            }
+
+            var currentPos = keyToConfigList[keyCode][currentIndex];
+            var location = new Point(currentScreen.WorkingArea.Left + (int)(currentScreen.WorkingArea.Width * currentPos.X / 100),
+                currentScreen.WorkingArea.Top + (int)(currentScreen.WorkingArea.Height * currentPos.Y / 100));
+            var size = new Size((int)(currentScreen.WorkingArea.Width * currentPos.Width / 100),
+                (int)(currentScreen.WorkingArea.Height * currentPos.Height / 100));
+
 
         }
 
         private void MoveForm(Keys keyCode)
         {
+            Helper.SetForegroundWindow(Handle.ToInt32());
+
             if (currentKey == keyCode)
             {
                 currentIndex = (currentIndex + 1)%keyToConfigList[keyCode].Count;
@@ -158,10 +207,10 @@ namespace WindowSelector
             }
 
             var currentPos = keyToConfigList[keyCode][currentIndex];
-            Location = new Point((int)(currentScreen.Bounds.Width * currentPos.X / 100),
-                (int)(currentScreen.Bounds.Height * currentPos.Y / 100));
-            Size = new Size((int)(currentScreen.Bounds.Width * currentPos.Width / 100),
-                (int)(currentScreen.Bounds.Height * currentPos.Height / 100));
+            Location = new Point(currentScreen.WorkingArea.Left + (int)(currentScreen.WorkingArea.Width * currentPos.X / 100),
+                currentScreen.WorkingArea.Top + (int)(currentScreen.WorkingArea.Height * currentPos.Y / 100));
+            Size = new Size((int)(currentScreen.WorkingArea.Width * currentPos.Width / 100),
+                (int)(currentScreen.WorkingArea.Height * currentPos.Height / 100));
         }
 
         private void OnMouseDown(object sender, MouseEventExtArgs e)
@@ -171,6 +220,7 @@ namespace WindowSelector
             {
                 currentScreen = newScreen;
                 Location = new Point(currentScreen.WorkingArea.Left, currentScreen.WorkingArea.Top);
+                Size = new Size(0, 0);
             }
 
         }
@@ -199,7 +249,7 @@ namespace WindowSelector
             {
                 Helper.GetWindowPlacement(window.Key, ref placement);
                 if (placement.showCmd != 2 &&
-                    !window.Value.Contains(Application.ProductName) &&
+                    window.Value != Application.ProductName &&
                     !exclusions.Any(x => window.Value.Contains(x)))
                 {
                     CurrentWindows.Add(window);
