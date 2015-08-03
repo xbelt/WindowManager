@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Win32;
 using WindowScrape.Types;
 
 namespace WindowSelector
@@ -37,6 +38,15 @@ namespace WindowSelector
             for (IntPtr h = hWnd; h != IntPtr.Zero; h = GetWindow(h, 3)) z++;
             return z;
         }
+
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr OpenProcess(uint dwDesiredAccess, bool bInheritHandle, uint dwProcessId);
+
+        [DllImport("psapi.dll")]
+        public static extern uint GetModuleFileNameEx(IntPtr hWnd, IntPtr hModule, StringBuilder lpFileName, int nSize);
+
+        [DllImport("user32.dll")]
+        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
         [DllImport("user32.dll")]
         public static extern IntPtr GetForegroundWindow();

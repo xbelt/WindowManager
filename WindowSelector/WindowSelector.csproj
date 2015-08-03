@@ -69,6 +69,7 @@
     <Compile Include="LayoutSettings.Designer.cs">
       <DependentUpon>LayoutSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModifyRegistry.cs" />
     <Compile Include="OpenWindowGetter.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Program.cs" />
