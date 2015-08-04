@@ -42,6 +42,7 @@
             this.Opacity = 0D;
             this.ShowInTaskbar = false;
             this.Text = "WindowSelector";
+            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.ResumeLayout(false);
 
         }

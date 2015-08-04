@@ -1,6 +1,6 @@
 ﻿namespace WindowSelector
 {
-    internal class Position
+    public class Position
     {
         public float X;
         public float Y;
@@ -18,6 +18,11 @@
         public override string ToString()
         {
             return "X: " + X + " Y: " + Y + " Width: " + Width + " Height: " + Height;
+        }
+
+        public string Pretty()
+        {
+            return "X: " + X.ToString("##.00") + " | Y: " + Y.ToString("##.00") + " | Width: " + Width.ToString("##.00") + " | Height: " + Height.ToString("##.00");
         }
     }
 }
