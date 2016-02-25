@@ -44,46 +44,13 @@ namespace WindowSelector
         private MouseHookListener mouseListener;
         private KeyboardHookListener keyboardListener;
 
-        private int WindowsVersion
-        {
-            get
-            {
-                if (_windowsVersion != 0) return _windowsVersion;
-                var temp = new ModifyRegistry();
-                var read = temp.Read("CurrentMajorVersionNumber");
-                if (read != null)
-                    _windowsVersion = (int) read;
-                return _windowsVersion;
-            }
-        }
-
-        private const int Offset = 7;
-
-        private int WindowOffset()
-        {
-            return WindowsVersion >= 10 ? Offset : 0;
-        }
-
-        private int WindowOffset(string processName)
-        {
-            if (WindowOffset() != Offset) return WindowOffset();
-            return _processExclusions.Any(processName.EndsWith) ? 0 : WindowOffset();
-        }
-
         public WindowSelector()
         {
             InitializeComponent();
             ExceptionlessClient.Default.Register();
             Config.Init();
-            if (!HasValidLicense())
-            {
-                Application.Exit();
-            }
 
             Size = new Size(0,0);
-            
-            _exclusions = ReadExclusions();
-            _processExclusions = ReadProcessExclusions();
 
             _hasBeenPressend[Keys.Add] = false;
 
@@ -101,10 +68,7 @@ namespace WindowSelector
             var trayMenu = new ContextMenu();
             trayMenu.MenuItems.Add("Settings", OnSettings);
             trayMenu.MenuItems.Add("Exit", OnExit);
-
-            // Create a tray icon. In this example we use a
-            // standard system icon for simplicity, but you
-            // can of course use your own custom icon too.
+            
             var trayIcon = new NotifyIcon
             {
                 Text = "Window Selector",
@@ -126,95 +90,6 @@ namespace WindowSelector
             Opacity = 0.15f;
             Size = new Size(0, 0);
             WindowState = FormWindowState.Normal;
-        }
-
-        private bool HasValidLicense()
-        {
-            string correctKey = null;
-            var actualKey = "";
-        
-            try
-            {
-                correctKey = CalculateMD5Hash(Config.Settings["Settings"]["Email"].Value +
-                                                  "9o7X^jdqAMdG7oOMQYnZ&WgJ5@xexEtlFrCWQnHEfm*5E13%@ce3#WElk*uPRGd^dHd4@xDKFNK#VBkSZ7o%7nCQDRMJONY799t@")
-                    .Substring(0, 10);
-                actualKey = Config.Settings["Settings"]["License"].Value;
-            }
-            catch (Exception e)
-            {
-                e.ToExceptionless().MarkAsCritical().AddTags("reading activation").Submit();
-            }
-
-            while (correctKey != actualKey)
-            {
-                if (
-                    MessageBox.Show("Please enter correct license information", "Mîssing License",
-                        MessageBoxButtons.OKCancel, MessageBoxIcon.Error) == DialogResult.OK)
-                {
-                    var dialog = new Activation();
-                    if (dialog.ShowDialog() == DialogResult.OK)
-                    {
-                        actualKey = Config.Settings["Settings"]["License"].Value;
-                        correctKey = CalculateMD5Hash(Config.Settings["Settings"]["Email"].Value +
-                                                  "9o7X^jdqAMdG7oOMQYnZ&WgJ5@xexEtlFrCWQnHEfm*5E13%@ce3#WElk*uPRGd^dHd4@xDKFNK#VBkSZ7o%7nCQDRMJONY799t@")
-                    .Substring(0, 10);
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            return true;
-
-        }
-
-        public string CalculateMD5Hash(string input)
-        {
-            // step 1, calculate MD5 hash from input
-            MD5 md5 = MD5.Create();
-            byte[] inputBytes = Encoding.ASCII.GetBytes(input);
-            byte[] hash = md5.ComputeHash(inputBytes);
-
-            // step 2, convert byte array to hex string
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < hash.Length; i++)
-            {
-                sb.Append(hash[i].ToString("X2"));
-            }
-            return sb.ToString();
-        }
-
-        private List<string> ReadProcessExclusions()
-        {
-            try
-            {
-                var result = new List<string>();
-                var connectionString = new MySqlConnectionStringBuilder();
-                connectionString.UserID = Config.Settings["MySql"]["Username"].Value;
-                connectionString.Password = Config.Settings["MySql"]["Password"].Value;
-                connectionString.Database = Config.Settings["MySql"]["Database"].Value;
-                connectionString.Port = (uint) Config.Settings["MySql"]["Port"].intValue;
-                connectionString.Server = Config.Settings["MySql"]["Host"].Value;
-                using (var connection = new MySqlConnection(connectionString.ConnectionString))
-                {
-                    connection.Open();
-                    using (var reader = new MySqlCommand("SELECT process FROM exclusions", connection).ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            result.Add(reader.GetString("process"));
-                        }
-                    }
-
-                }
-                return result;
-            }
-            catch (Exception e)
-            {
-                e.ToExceptionless().AddTags("mysql", "table:exclusions").Submit();
-                return new List<string>();
-            }
         }
 
         private void InitializePositions()
@@ -242,13 +117,13 @@ namespace WindowSelector
             {
                 var size = Helper.GetWindowDimensions(currentWindow.Key);
 
-                if (Location.X > size.Left + WindowOffset())
+                if (Location.X > size.Left)
                     continue;
                 if (Location.Y > size.Top)
                     continue;
-                if (Location.X + Size.Width < size.Right - WindowOffset())
+                if (Location.X + Size.Width < size.Right)
                     continue;
-                if (Location.Y + Size.Height < size.Bottom - WindowOffset())
+                if (Location.Y + Size.Height < size.Bottom)
                     continue;
 
                 possibleWindows.Add(currentWindow.Key);
@@ -302,10 +177,10 @@ namespace WindowSelector
 
             var processName = text.ToString();
 
-            var location = new Point(_currentScreen.WorkingArea.Left + (int)(_currentScreen.WorkingArea.Width * currentPos.X / 100) - WindowOffset(processName),
+            var location = new Point(_currentScreen.WorkingArea.Left + (int)(_currentScreen.WorkingArea.Width * currentPos.X / 100),
                 _currentScreen.WorkingArea.Top + (int)(_currentScreen.WorkingArea.Height * currentPos.Y / 100));
-            var size = new Size((int)(_currentScreen.WorkingArea.Width * currentPos.Width / 100) + 2 * WindowOffset(processName),
-                (int)(_currentScreen.WorkingArea.Height * currentPos.Height / 100) + WindowOffset(processName));
+            var size = new Size((int)(_currentScreen.WorkingArea.Width * currentPos.Width / 100),
+                (int)(_currentScreen.WorkingArea.Height * currentPos.Height / 100));
             
 
             Helper.SetWindowPos(activeWindow, 0, location.X, location.Y, size.Width, size.Height,
@@ -358,37 +233,5 @@ namespace WindowSelector
         }
 
         private List<KeyValuePair<IntPtr, string>> CurrentWindows { get; set; } = new List<KeyValuePair<IntPtr, string>>();
-
-        private static List<string> ReadExclusions()
-        {
-            try
-            {
-                var result = new List<string>();
-                var connectionString = new MySqlConnectionStringBuilder();
-                connectionString.UserID = Config.Settings["MySql"]["Username"].Value;
-                connectionString.Password = Config.Settings["MySql"]["Password"].Value;
-                connectionString.Database = Config.Settings["MySql"]["Database"].Value;
-                connectionString.Port = (uint) Config.Settings["MySql"]["Port"].intValue;
-                connectionString.Server = Config.Settings["MySql"]["Host"].Value;
-                using (var connection = new MySqlConnection(connectionString.ConnectionString))
-                {
-                    connection.Open();
-                    using (var reader = new MySqlCommand("SELECT windows FROM windows", connection).ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            result.Add(reader.GetString("windows"));
-                        }
-                    }
-
-                }
-                return result;
-            }
-            catch (Exception e)
-            {
-                e.ToExceptionless().MarkAsCritical().AddTags("mysql", "table:windows").Submit();
-                return new List<string>();
-            }
-        }
     }
 }

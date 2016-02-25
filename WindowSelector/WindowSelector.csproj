@@ -61,16 +61,16 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Exceptionless, Version=3.1.1382.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Exceptionless.3.1.1382\lib\net45\Exceptionless.dll</HintPath>
+    <Reference Include="Exceptionless, Version=3.3.1575.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Exceptionless.3.3.1575\lib\net45\Exceptionless.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Exceptionless.Extras, Version=3.1.1382.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Exceptionless.3.1.1382\lib\net45\Exceptionless.Extras.dll</HintPath>
+    <Reference Include="Exceptionless.Extras, Version=3.3.1575.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Exceptionless.3.3.1575\lib\net45\Exceptionless.Extras.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Exceptionless.Portable, Version=3.1.1382.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Exceptionless.Portable.3.1.1382\lib\net45\Exceptionless.Portable.dll</HintPath>
+    <Reference Include="Exceptionless.Portable, Version=3.3.1575.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Exceptionless.Portable.3.3.1575\lib\net45\Exceptionless.Portable.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MouseKeyboardActivityMonitor, Version=4.0.5150.10665, Culture=neutral, processorArchitecture=MSIL">
@@ -104,12 +104,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Windows\Activation.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\Activation.Designer.cs">
-      <DependentUpon>Activation.cs</DependentUpon>
-    </Compile>
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Various\globalKeyboardHook.cs" />
     <Compile Include="Various\Helper.cs" />
@@ -142,9 +136,6 @@
     <Compile Include="WindowSelectorEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <EmbeddedResource Include="Windows\Activation.resx">
-      <DependentUpon>Activation.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Windows\LayoutSettings.resx">
       <DependentUpon>LayoutSettings.cs</DependentUpon>
     </EmbeddedResource>

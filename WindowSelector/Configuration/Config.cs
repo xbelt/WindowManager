@@ -34,15 +34,8 @@ namespace WindowSelector.Configuration
             if (alreadyExists)
                 return;
             #region initDefault
-
-            Settings["MySql"]["Username"].Value = "ws_public";
-            Settings["MySql"]["Password"].Value = "";
-            Settings["MySql"]["Database"].Value = "windowselector";
-            Settings["MySql"]["Port"].intValue = 3306;
-            Settings["MySql"]["Host"].Value = "xbelt.ddns.net";
+            
             Settings["Settings"]["Color"].intValue = Color.Blue.ToArgb();
-            Settings["Settings"]["License"].Value = "";
-            Settings["Settings"]["Email"].Value = "";
             Settings["Positions"]["N1"].Value = "[" +
                                     "{\"X\":0.0,\"Y\":50.0,\"Width\":50.0,\"Height\":50.0}," +
                                     "{\"X\":0.0,\"Y\":50.0,\"Width\":25.0,\"Height\":50.0}," +
