@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="WindowSelector.exe" version="1.0.0.2" publicKeyToken="12906c939ed1505c" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="WindowSelector" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="WindowSelector.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Exceptionless.dll" size="7168">
+      <assemblyIdentity name="Exceptionless" version="3.3.1575.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>SUYrMXd00NzDx0wAG5yhFruF6ejS7vQC8x1jaunoDUE=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Exceptionless.Extras.dll" size="72192">
+      <assemblyIdentity name="Exceptionless.Extras" version="3.3.1575.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>H8adblr0MALcMFvXJKz31/Tc3/l6l0pIOaU5qFwtj3c=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Exceptionless.Portable.dll" size="670208">
+      <assemblyIdentity name="Exceptionless.Portable" version="3.3.1575.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>g+W4I6QlJSVaBT9r7QCOuAzr58rGP1KpE+gc0WBiUaA=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MouseKeyboardActivityMonitor.dll" size="45056">
+      <assemblyIdentity name="MouseKeyboardActivityMonitor" version="4.0.5150.10665" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>ybXp6heswvmq7pFZg2vhNXAJQGSm7fowl8jbf5izpgA=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MySql.Data.dll" size="455168">
+      <assemblyIdentity name="MySql.Data" version="6.8.3.0" publicKeyToken="C5687FC88969C44D" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>XVWVKKNSf7V1KLrm8cxaqLQF1aQOLK6JOkT6jR+Z9po=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="520192">
+      <assemblyIdentity name="Newtonsoft.Json" version="7.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>nsosXtGHteExnDWaq/g4KZITHv4YVLiZwjqT/iJ0luM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VAkos.dll" size="24576">
+      <assemblyIdentity name="VAkos" version="2.0.0.0" publicKeyToken="0B420D05960B405C" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>eRDLfOdie7UEm17x3lH9xXpLwrXQmRd+Zhrx91+U7CE=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WindowScrape.dll" size="17920">
+      <assemblyIdentity name="WindowScrape" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>z4woMVJPGYn018cKjaSGicTm1xDOP41zGk4O7mS1J+c=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WindowSelector.exe" size="288696">
+      <assemblyIdentity name="WindowSelector" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>1M0VcNz59OZcIvAsgH96ICMf7ZyJLC0zyXOtVqaj4XM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="WindowSelector.exe.config" size="393">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>qBbRwgE9L0WmA4UIu5Rfw+kR9ElmOFPRjqwm8INmVv0=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=LUKAS-PC\Lukas" issuerKeyHash="b387dabf2df009d2e17b6fed3ef466c182912d92" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>sxFxFD9m9wSIQWUvtuNClnyaOeTkMxf3Hz6luKdSLmA=</DigestValue></Reference></SignedInfo><SignatureValue>qLuBOH5/gr9dpbrS5y+pEvyDOQOI5mR0+KrOsbrV7TBcFEXs3SkgagN4ZE+VZDuH+ovogAzQdKV7NN98hH4uvgvLgTtwpFiGjuqwZrAAgV2N+wU0x+SBDlpbEU5FWVNknQT2WDhBQqQeYDrdZHTm+EdYzrnylIIuu8rQfvhFLNU=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>1hX/6RC3tUJ99K7utqfqyxpIrfyBKazM7DjkX0bdZNQU8aS7LZkWSyjOW8a4VMK+a0u7109jNGt9sDfZncOB5JbWeTH4bxtJQ3RtBFmTT7Ua1hBb9xIe+t0kwlYPpcvTqNxVx21owhmU9ZuGvs2cTAkQE2LIWiYjS1A1m5E+F0M=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="602e52a7b8a53e1ff71733e4e4399a7c9642e3b62f65418804f7663f147111b3" Description="" Url=""><as:assemblyIdentity name="WindowSelector.exe" version="1.0.0.2" publicKeyToken="12906c939ed1505c" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=LUKAS-PC\Lukas</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>YfHzWGR7OIkVYjQqAIX8s4Ra98JP6M00ASOUyLXlqE4=</DigestValue></Reference></SignedInfo><SignatureValue>pIGLf6Mo9bS29sSOOT2+fy7kybSN+7qWA5IX06eLO3dAUVQlWPMTgZRIsu9sA43c+nAzc8dzcVilqOaDOHUtTbvc8b7tBVxFkgQ/yOJMi7xEUFUArMnP0FEdJ8yKj2CmLTDArAEI/lZMNjKxw9kz5h7a1mh5dzuuWD1CQkW/ZF8=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>1hX/6RC3tUJ99K7utqfqyxpIrfyBKazM7DjkX0bdZNQU8aS7LZkWSyjOW8a4VMK+a0u7109jNGt9sDfZncOB5JbWeTH4bxtJQ3RtBFmTT7Ua1hBb9xIe+t0kwlYPpcvTqNxVx21owhmU9ZuGvs2cTAkQE2LIWiYjS1A1m5E+F0M=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB0TCCATqgAwIBAgIQZsD6NKMhvL5EO09HpjGMmDANBgkqhkiG9w0BAQsFADAnMSUwIwYDVQQDHhwATABVAEsAQQBTAC0AUABDAFwATAB1AGsAYQBzMB4XDTE1MDgwNDIwMDM0N1oXDTE2MDgwNDAyMDM0N1owJzElMCMGA1UEAx4cAEwAVQBLAEEAUwAtAFAAQwBcAEwAdQBrAGEAczCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA1hX/6RC3tUJ99K7utqfqyxpIrfyBKazM7DjkX0bdZNQU8aS7LZkWSyjOW8a4VMK+a0u7109jNGt9sDfZncOB5JbWeTH4bxtJQ3RtBFmTT7Ua1hBb9xIe+t0kwlYPpcvTqNxVx21owhmU9ZuGvs2cTAkQE2LIWiYjS1A1m5E+F0MCAwEAATANBgkqhkiG9w0BAQsFAAOBgQCI3/yHIuu82uXFcbbHDg1qTNoYTS0E7nVvW/ihwTKIneyeHKUu7lJAKSZfTl2jHBnk+rJuMxC9OkAFcHWLVDf1DRW+RDUGBvOUrL8aG0nuHp1DRLnVzbeVxVLPdzC1uLRoRIo1+NE4Jr+vZIw5YspLEWC3gwQhX+ljKOJV9QiMvQ==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
