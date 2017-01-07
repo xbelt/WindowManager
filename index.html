@@ -36,6 +36,20 @@ This project is mainly based on WinSplit revolution which sadly was discontinued
 
 <p><img src="images/settings.png" alt="Settings" style="">
 <br></p>
+
+<h3><a id="technical" class="anchor" href="#technical" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Technical details</h3>
+This sections will focus on the changes that are applied when the window snapping is fixed. This is a problem only appearing on Windows 10. The problem is that many windows have a transparent margin so the snapping of windows will always look a little off. To fix this problem we need to activate an aero-lite theme hidden in Windows 10. <br>
+The exact changes are described below:
+<ul>
+	<li>Copy aero.theme in C:\Windows\Resources\Themes to aerolite.theme</li>
+	<li>In the "Theme" section add "Displayname=Aero Lite"</li>
+	<li>In the "VisualStyles" section add "Path=%ResourceDir%\Themes\Aero\AeroLite.msstyles"</li>
+	<li>Activate theme</li>
+</ul>
+
+Now that we have enabled the correct theme we can set the border padding to zero by setting the following registry key to zero: "HKEY_CURRENT_USER\Control Panel\Desktop\WindowMetrics\PaddedBorderWidth"<br><br>
+Both these changes can be reverted by clicking the "Revert changes" button in the Settings Menu.
+
 <!--
 
 <h3>
