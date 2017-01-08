@@ -27,7 +27,7 @@ This project is mainly inspired by WinSplit revolution which sadly was discontin
 <ul>
 	<li>Fully customizable</li>
 	<li>Arrange windows with powerful shortcuts</li>
-	<li>(WIP)Select windows with powerful shortcuts</li>
+	<li>Select windows with powerful shortcuts</li>
 	<li>Totally free</li>
 </ul>
 </p>
@@ -36,6 +36,25 @@ This project is mainly inspired by WinSplit revolution which sadly was discontin
 
 <p><img src="images/settings.png" alt="Settings" style="">
 <br></p>
+<p><img src="images/Move2.gif" alt="Moving" style="">
+<br></p>
+
+<h3><a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h3>
+Moving the active window can be achieved by pressing CTRL + Alt + [1-9] on the Numpad. For example NumPad 7 moves the Window into the top-left corner. Repeatedly pressing the same NumPad button will circle through all available configurations. How the rules for each button can be changed will be explained later on.<br>
+Activating a window can be done by pressing CTRL + Alt + NumPad0 + [1-9]. Pressing CTRL + Alt + NumPad0 will show an overlay which can be moved around with [1-9] on the NumPad in a similar way as moving the active window. This will set the top-most window, completely covered by the overly, as the active window. 
+
+<h3><a id="settings" class="anchor" href="#settings" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Settings</h3>
+The Settings menu can be opened by right-clicking on the tray-icon. It will show a window similar to the one shown in the screenshot above. To change the rules for a certain button we can select it in the left pane. This will show the different rules for this particular button in the order they are circled through. With the three buttons on the right (Add Rule, Modify Rule and Delete Rule) we can add, modify and delete the rules for this button. With the two arrow buttons we can rearrange the order of the rules. All values in a particular rule are measured in percentages. Now we will explain how these four different values influence a rule:<br>
+<ul>
+<li>X: the X-value has value 0 at the left side of the screen and increases to 100 on the right side of the screen</li>
+<li>Y: the Y-value has value 0 at the top side of the screen and increases to 100 on the bottom side of the screen</li>
+<li>Width: denotes the width of the window in percent. So a value of 50 will make a window span 50% of the available screen width starting at X-value</li>
+<li>Height: similar to width but denotes the height of the window</li>
+</ul>
+
+Setting the overlay color is still WIP.<br>
+We can enable the checkbox next to "Start with Windows" so the application is run when windows starts. <br>
+The last setting can be used to fix a problem in Windows 10 where there is an invisible margin around many windows which can be annoying. The exact details applied in this fix can be seen in the next section.
 
 <h3><a id="technical" class="anchor" href="#technical" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Technical details</h3>
 This sections will focus on the changes that are applied when the window snapping is fixed. This is a problem only appearing on Windows 10. The problem is that many windows have a transparent margin so the snapping of windows will always look a little off. To fix this problem we need to activate an aero-lite theme hidden in Windows 10. <br>
