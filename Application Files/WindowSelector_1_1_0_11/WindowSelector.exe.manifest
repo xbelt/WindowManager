@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="WindowSelector.exe" version="1.1.0.11" publicKeyToken="1c31569bcf03ecb3" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="WindowSelector" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="WindowSelector.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MouseKeyboardActivityMonitor.dll" size="45056">
+      <assemblyIdentity name="MouseKeyboardActivityMonitor" version="4.0.5150.10665" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>ybXp6heswvmq7pFZg2vhNXAJQGSm7fowl8jbf5izpgA=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="520192">
+      <assemblyIdentity name="Newtonsoft.Json" version="7.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>nsosXtGHteExnDWaq/g4KZITHv4YVLiZwjqT/iJ0luM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VAkos.dll" size="24576">
+      <assemblyIdentity name="VAkos" version="2.0.0.0" publicKeyToken="0B420D05960B405C" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>eRDLfOdie7UEm17x3lH9xXpLwrXQmRd+Zhrx91+U7CE=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WindowScrape.dll" size="17920">
+      <assemblyIdentity name="WindowScrape" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>z4woMVJPGYn018cKjaSGicTm1xDOP41zGk4O7mS1J+c=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WindowSelector.exe" size="488920">
+      <assemblyIdentity name="WindowSelector" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>09IPTjuIx9d6L5zrKBbw5gnJ3V/BW91ckmzuWMag7vE=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="aerolite.theme" size="1949">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>SiYPqHYmHteIBIseG48jdRc3fIkxlkzijnOgRYmrKU0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="WindowSelector.exe.config" size="393">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>qBbRwgE9L0WmA4UIu5Rfw+kR9ElmOFPRjqwm8INmVv0=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=DESKTOP-LUKAS\lukas" issuerKeyHash="b59b7196cb9d14f045d2f48eb9e6284b3b10fed3" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>qgvE5dLw1S6a3a/ZsGlXeTvlrJzrPLuWuiAZUaablSg=</DigestValue></Reference></SignedInfo><SignatureValue>Bwt3qsgupf3JHETZzyTk3iOIo5CU5TlzVq1TpCY7a7iLEXBk0ZkFW3mLrbsai0Cq9LBZ+IL3y4gTen44lNcK98V/eClfnpJP0mE25mpbHQTjlVi0AOFEixNkk2XAIcr5W5CEbbWuVcR2rPJ5/tQ9w1NARPeilua9ALlOc/bJhug=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>nKRyGVTUOJIHVA/k6AGan7IxF6wYOKsDftL08m1k1VcH/b2pXm+sa16PvhD/YediFFhAmdaQ1EnGtTODZfmyd4c7PC/t3qdT3k2JXjyGIOG1A0rEdNOkCLDJHpscqlYaloljm8yhT51rMK80sm0U2Y5atd9wP23qUQEbz1qEXfE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="28959ba6511920ba96bb3ceb9cace53b795769b0d9afdd9a2ed5f0d2e5c40baa" Description="" Url=""><as:assemblyIdentity name="WindowSelector.exe" version="1.1.0.11" publicKeyToken="1c31569bcf03ecb3" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=DESKTOP-LUKAS\lukas</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>5p2KW6vspi+Y8Ad+aLeHFu5W8bmIx/d/sXHQNP/ROmQ=</DigestValue></Reference></SignedInfo><SignatureValue>U0XgI4lnTY10xHUhE+CB78HlPh6p8zZ4jdzw429zcFPowpMinSB1gbzbX77y7jeq4g2i1zff6EwMRJKvIcuExul9X3lnr4upeiI6X6NX8WeZgRaQJFHqVM1TQaL2UwYy2slbp5M1EBiykHK84/4aEXVqTdAGX0vLkm/dCjMOcgE=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>nKRyGVTUOJIHVA/k6AGan7IxF6wYOKsDftL08m1k1VcH/b2pXm+sa16PvhD/YediFFhAmdaQ1EnGtTODZfmyd4c7PC/t3qdT3k2JXjyGIOG1A0rEdNOkCLDJHpscqlYaloljm8yhT51rMK80sm0U2Y5atd9wP23qUQEbz1qEXfE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB5TCCAU6gAwIBAgIQVUWKlLouw65JaLqPqdzqMTANBgkqhkiG9w0BAQsFADAxMS8wLQYDVQQDHiYARABFAFMASwBUAE8AUAAtAEwAVQBLAEEAUwBcAGwAdQBrAGEAczAeFw0xOTAxMjQxMjQ2MDNaFw0yMDAxMjQxODQ2MDNaMDExLzAtBgNVBAMeJgBEAEUAUwBLAFQATwBQAC0ATABVAEsAQQBTAFwAbAB1AGsAYQBzMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcpHIZVNQ4kgdUD+ToAZqfsjEXrBg4qwN+0vTybWTVVwf9valeb6xrXo++EP9h52IUWECZ1pDUSca1M4Nl+bJ3hzs8L+3ep1PeTYlePIYg4bUDSsR006QIsMkemxyqVhqWiWObzKFPnWswrzSybRTZjlq133A/bepRARvPWoRd8QIDAQABMA0GCSqGSIb3DQEBCwUAA4GBAD57qvmUKM0NBXbjv5vC3cqF86z+r8zhLQX+h3s+bnzeJZ3uwQbzuMjee8gr7K+9QiUhNV4RM05A4IeBbNiIMPoeoFZklnCH+cwB8/tEx2m85IoK3W90BEHouKfh81XfDg4bUcXRsKn3H/AMGCNYxhZyokdv2pyBRKaZtqnbxA2Z</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
